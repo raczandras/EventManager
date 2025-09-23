@@ -2,5 +2,6 @@
 {
     public class EventDto : EventCreateDto
     {
+        public ulong EventId { get; set; }
     }
 }
