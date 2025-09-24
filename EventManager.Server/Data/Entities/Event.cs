@@ -7,7 +7,7 @@ namespace EventManager.Server.Data.Entities
     public class Event
     {
         [Key]
-        public ulong EventId { get; set; }
+        public int EventId { get; set; }
 
         public required string Name { get; set; }
 

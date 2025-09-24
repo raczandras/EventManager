@@ -48,7 +48,7 @@ namespace UnitTests.Repositories
         public async Task GetEventByIdAsync_WhenEventExists_ReturnsEvent()
         {
             // Arrange
-            ulong eventId = 1;
+            int eventId = 1;
             var expectedEvent = _events.First();
 
             // Act
@@ -148,7 +148,7 @@ namespace UnitTests.Repositories
         public async Task UpdateEventAsync_WithValidEvent_ReturnsUpdatedEvent()
         {
             // Arrange
-            var eventToUpdate = await _context.Events.FindAsync((ulong)1);
+            var eventToUpdate = await _context.Events.FindAsync(1);
             Assert.That(eventToUpdate, Is.Not.Null);
             eventToUpdate.Name = "Updated Event";
 
@@ -162,7 +162,7 @@ namespace UnitTests.Repositories
                 Assert.That(result.Name, Is.EqualTo("Updated Event"));
             });
 
-            var savedEvent = await _context.Events.FindAsync((ulong)1);
+            var savedEvent = await _context.Events.FindAsync(1);
             Assert.That(savedEvent?.Name, Is.EqualTo("Updated Event"));
         }
 
@@ -170,7 +170,7 @@ namespace UnitTests.Repositories
         public async Task DeleteEventAsync_WithExistingEvent_ReturnsTrue()
         {
             // Arrange
-            var eventToDelete = await _context.Events.FindAsync((ulong)1);
+            var eventToDelete = await _context.Events.FindAsync(1);
             Assert.That(eventToDelete, Is.Not.Null);
 
             // Act
@@ -178,7 +178,7 @@ namespace UnitTests.Repositories
 
             // Assert
             Assert.That(result, Is.True);
-            var deletedEvent = await _context.Events.FindAsync((ulong)1);
+            var deletedEvent = await _context.Events.FindAsync(1);
             Assert.That(deletedEvent, Is.Null);
         }
     }

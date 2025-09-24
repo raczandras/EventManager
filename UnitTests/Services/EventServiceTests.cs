@@ -29,7 +29,7 @@ namespace UnitTests.Services
         public async Task GetEventByIdAsync_WhenEventExists_ReturnsEventDto()
         {
             // Arrange
-            ulong eventId = 1;
+            int eventId = 1;
             var eventEntity = new Event { EventId = eventId, Name = "Test Event", Location = "Test Location" };
             var expectedDto = new EventDto { EventId = eventId, Name = "Test Event", Location = "Test Location" };
 
@@ -51,7 +51,7 @@ namespace UnitTests.Services
         public async Task GetEventByIdAsync_WhenEventDoesNotExist_ReturnsNull()
         {
             // Arrange
-            ulong eventId = 1;
+            int eventId = 1;
             _mockRepository.Setup(x => x.GetEventByIdAsync(eventId)).ReturnsAsync((Event?)null);
             _mockMapper.Setup(x => x.Map<Event?, EventDto?>(null)).Returns((EventDto?)null);
 
@@ -144,7 +144,7 @@ namespace UnitTests.Services
         public async Task DeleteEventAsync_WhenEventExists_ReturnsTrue()
         {
             // Arrange
-            ulong eventId = 1;
+            int eventId = 1;
             var existingEntity = new Event { EventId = 1, Name = "Test Event", Location = "Test Location" };
 
             _mockRepository.Setup(x => x.GetEventByIdAsync(eventId)).ReturnsAsync(existingEntity);

@@ -15,7 +15,7 @@ namespace EventManager.Server.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Event?> GetEventByIdAsync(ulong eventId)
+        public async Task<Event?> GetEventByIdAsync(int eventId)
         {
             return await _dbContext.Events.AsNoTracking().FirstOrDefaultAsync(entity => entity.EventId == eventId);
         }

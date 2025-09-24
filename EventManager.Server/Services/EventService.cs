@@ -21,7 +21,7 @@ namespace EventManager.Server.Services
             _logger = logger;
         }
 
-        public async Task<EventDto?> GetEventByIdAsync(ulong id)
+        public async Task<EventDto?> GetEventByIdAsync(int id)
         {
             var stopwatch = Stopwatch.StartNew();
 
@@ -113,7 +113,7 @@ namespace EventManager.Server.Services
             return result;
         }
 
-        public async Task<bool> DeleteEventAsync(ulong id)
+        public async Task<bool> DeleteEventAsync(int id)
         {
             var stopwatch = Stopwatch.StartNew();
 

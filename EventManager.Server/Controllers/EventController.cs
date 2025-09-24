@@ -26,7 +26,7 @@ namespace EventManager.Server.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(EventDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetEventById(ulong id)
+        public async Task<IActionResult> GetEventById(int id)
         {
             _logger.LogInformation("GET Event {EventId} requested.", id);
 
@@ -106,7 +106,7 @@ namespace EventManager.Server.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> DeleteEvent(ulong id)
+        public async Task<ActionResult> DeleteEvent(int id)
         {
             var deleted = await _eventService.DeleteEventAsync(id);
             if (!deleted)
