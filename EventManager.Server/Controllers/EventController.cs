@@ -28,8 +28,6 @@ namespace EventManager.Server.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetEventById(int id)
         {
-            _logger.LogInformation("GET Event {EventId} requested.", id);
-
             var result = await _eventService.GetEventByIdAsync(id);
 
             if (result == null)
@@ -39,8 +37,6 @@ namespace EventManager.Server.Controllers
                 _logger.LogWarning(message);
                 return NotFound(new { Message = message });
             }
-
-            _logger.LogInformation("Event with ID {EventId} retrieved successfully.", id);
             return Ok(result);
         }
 
@@ -92,7 +88,10 @@ namespace EventManager.Server.Controllers
             var updated = await _eventService.UpdateEventAsync(dto);
             if (updated == null)
             {
-                return NotFound(new { Message = $"Event with ID {dto.EventId} not found." });
+                string message = $"Event with ID {dto.EventId} not found.";
+
+                _logger.LogWarning(message);
+                return NotFound(new { Message = message });
             }
 
             return Ok(updated);
@@ -111,7 +110,10 @@ namespace EventManager.Server.Controllers
             var deleted = await _eventService.DeleteEventAsync(id);
             if (!deleted)
             {
-                return NotFound(new { Message = $"Event with ID {id} not found." });
+                string message = $"Event with ID {id} not found.";
+
+                _logger.LogWarning(message);
+                return NotFound(new { Message = message });
             }
 
             return NoContent();
