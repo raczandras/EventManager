@@ -22,8 +22,6 @@ namespace EventManager.Server.Repositories
 
         public async Task<PagedResult<Event>> GetEventsAsync(PaginationQuery query)
         {
-            var connectionString = _dbContext.Database.GetConnectionString();
-
             var queryable = _dbContext.Events.AsQueryable();
 
             //Sorting
