@@ -27,9 +27,16 @@ builder.Services.AddOpenApi();
 
 //Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
+    options.UseSqlite("DataSource=EventManager.db"));
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.OpenConnection();
+    db.Database.Migrate();
+}
 
 app.UseDefaultFiles();
 app.MapStaticAssets();
