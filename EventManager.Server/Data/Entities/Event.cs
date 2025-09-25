@@ -16,6 +16,6 @@ namespace EventManager.Server.Data.Entities
 
         public string? Country { get; set; }
 
-        public uint? Capacity { get; set; }
+        public int? Capacity { get; set; }
     }
 }

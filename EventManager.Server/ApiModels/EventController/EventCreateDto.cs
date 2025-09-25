@@ -13,7 +13,7 @@ namespace EventManager.Server.ApiModels.EventController
 
         public string? Country { get; set; }
 
-        [Range(1, uint.MaxValue, ErrorMessage = "Capacity must be a positive number.")]
-        public uint? Capacity { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Capacity must be a positive number.")]
+        public int? Capacity { get; set; }
     }
 }
