@@ -25,9 +25,7 @@ export default function EventsPage() {
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
 
-    useEffect(() => {
-        loadEvents();
-    }, [page, pageSize, sortBy, descending]);
+    useEffect(() => { loadEvents(); }, [page, pageSize, sortBy, descending]);
 
     async function loadEvents() {
         setLoading(true);
@@ -88,27 +86,29 @@ export default function EventsPage() {
 
     return (
         <Box sx={{ p: 3 }}>
-            {loading ? (<CircularProgress />) : events.length === 0 ? (<Typography>No events available.</Typography>)
-                : (
-                    <EventTable
-                        events={events}
-                        page={page}
-                        pageSize={pageSize}
-                        totalCount={totalCount}
-                        onEdit={(event) => { setSelectedEvent(event); setOpenForm(true); }}
-                        onDelete={(event) => { setSelectedEvent(event); setOpenDelete(true); }}
-                        onCreate={() => { setSelectedEvent(null); setOpenForm(true); }}
-                        onPageChange={(newPage, newSize) => { setPage(newPage); setPageSize(newSize); }}
-                        sortBy={sortBy}
-                        descending={descending}
-                        onSort={handleSort}
-                    />
-            )}
+            {loading ?
+                (<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "calc(100vh - 130px)", }}>
+                    <CircularProgress />
+                </Box>) :
+                (<EventTable
+                    events={events}
+                    page={page}
+                    pageSize={pageSize}
+                    totalCount={totalCount}
+                    onEdit={(event) => { setSelectedEvent(event); setOpenForm(true); }}
+                    onDelete={(event) => { setSelectedEvent(event); setOpenDelete(true); }}
+                    onCreate={() => { setSelectedEvent(null); setOpenForm(true); }}
+                    onPageChange={(newPage, newSize) => { setPage(newPage); setPageSize(newSize); }}
+                    sortBy={sortBy}
+                    descending={descending}
+                    onSort={handleSort}
+                />
+                )}
 
             <EventFormDialog
                 open={openForm}
                 saving={saving}
-                initialValues={selectedEvent || { eventId: 0, name: "", location: "", country: "", capacity: null }}
+                initialValues={selectedEvent || { eventId: 0, name: "", location: "", country: null, capacity: null }}
                 onClose={() => setOpenForm(false)}
                 onSave={handleSave}
             />
@@ -122,23 +122,13 @@ export default function EventsPage() {
                 onConfirm={handleDelete}
             />
 
-            <Snackbar
-                open={!!successMessage}
-                autoHideDuration={3000}
-                onClose={() => setSuccessMessage(null)}
-                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            >
+            <Snackbar open={!!successMessage} autoHideDuration={3000} onClose={() => setSuccessMessage(null)} anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
                 <Alert severity="success" onClose={() => setSuccessMessage(null)}>
                     {successMessage}
                 </Alert>
             </Snackbar>
 
-            <Snackbar
-                open={!!errorMessage}
-                autoHideDuration={3000}
-                onClose={() => setErrorMessage(null)}
-                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            >
+            <Snackbar open={!!errorMessage} autoHideDuration={3000} onClose={() => setErrorMessage(null)} anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
                 <Alert severity="error" onClose={() => setErrorMessage(null)}>
                     {errorMessage}
                 </Alert>

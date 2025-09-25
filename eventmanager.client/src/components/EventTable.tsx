@@ -20,12 +20,12 @@ interface Props {
     page: number;
     pageSize: number;
     totalCount: number;
+    sortBy?: string;
+    descending: boolean;
     onEdit: (event: Event) => void;
     onDelete: (event: Event) => void;
     onPageChange: (page: number, pageSize: number) => void;
     onCreate: () => void;
-    sortBy?: string;
-    descending: boolean;
     onSort: (column: string) => void;
 }
 
@@ -68,38 +68,22 @@ export default function EventTable({
                     <TableHead>
                         <TableRow>
                             <TableCell>
-                                <TableSortLabel
-                                    active={sortBy === "Name"}
-                                    direction={sortBy === "Name" ? (descending ? "desc" : "asc") : "asc"}
-                                    onClick={createSortHandler("Name")}
-                                >
+                                <TableSortLabel active={sortBy === "Name"} direction={sortBy === "Name" ? (descending ? "desc" : "asc") : "asc"} onClick={createSortHandler("Name")}>
                                     Name
                                 </TableSortLabel>
                             </TableCell>
                             <TableCell>
-                                <TableSortLabel
-                                    active={sortBy === "Location"}
-                                    direction={sortBy === "Location" ? (descending ? "desc" : "asc") : "asc"}
-                                    onClick={createSortHandler("Location")}
-                                >
+                                <TableSortLabel active={sortBy === "Location"} direction={sortBy === "Location" ? (descending ? "desc" : "asc") : "asc"}onClick={createSortHandler("Location")}>
                                     Location
                                 </TableSortLabel>
                             </TableCell>
                             <TableCell>
-                                <TableSortLabel
-                                    active={sortBy === "Country"}
-                                    direction={sortBy === "Country" ? (descending ? "desc" : "asc") : "asc"}
-                                    onClick={createSortHandler("Country")}
-                                >
+                                <TableSortLabel active={sortBy === "Country"} direction={sortBy === "Country" ? (descending ? "desc" : "asc") : "asc"} onClick={createSortHandler("Country")}>
                                     Country
                                 </TableSortLabel>
                             </TableCell>
                             <TableCell>
-                                <TableSortLabel
-                                    active={sortBy === "Capacity"}
-                                    direction={sortBy === "Capacity" ? (descending ? "desc" : "asc") : "asc"}
-                                    onClick={createSortHandler("Capacity")}
-                                >
+                                <TableSortLabel active={sortBy === "Capacity"} direction={sortBy === "Capacity" ? (descending ? "desc" : "asc") : "asc"} onClick={createSortHandler("Capacity")}>
                                     Capacity
                                 </TableSortLabel>
                             </TableCell>
@@ -107,47 +91,35 @@ export default function EventTable({
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {events.map((event) => (
-                            <TableRow key={event.eventId}>
-                                <TableCell>{event.name}</TableCell>
-                                <TableCell>{event.location}</TableCell>
-                                <TableCell>{event.country ?? "-"}</TableCell>
-                                <TableCell>{event.capacity ?? "-"}</TableCell>
-                                <TableCell align="right">
-                                    <Button
-                                        variant="outlined"
-                                        color="primary"
-                                        size="small"
-                                        startIcon={<Edit />}
-                                        onClick={() => onEdit(event)}
-                                    >
-                                        Edit
-                                    </Button>
-                                    <Button
-                                        variant="outlined"
-                                        color="error"
-                                        size="small"
-                                        startIcon={<Delete />}
-                                        onClick={() => onDelete(event)}
-                                        sx={{ ml: 1 }}
-                                    >
-                                        Delete
-                                    </Button>
+                        {events.length > 0 ? (
+                            events.map((event) => (
+                                <TableRow key={event.eventId}>
+                                    <TableCell>{event.name}</TableCell>
+                                    <TableCell>{event.location}</TableCell>
+                                    <TableCell>{event.country ?? "-"}</TableCell>
+                                    <TableCell>{event.capacity ?? "-"}</TableCell>
+                                    <TableCell align="right">
+                                        <Button variant="outlined" color="primary" size="small" startIcon={<Edit />} onClick={() => onEdit(event)}>
+                                            Edit
+                                        </Button>
+                                        <Button variant="outlined" color="error" size="small" startIcon={<Delete />} onClick={() => onDelete(event)} sx={{ ml: 1 }}>
+                                            Delete
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={5} align="center">
+                                    No events available
                                 </TableCell>
                             </TableRow>
-                        ))}
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>
 
-            <TablePagination
-                component="div"
-                count={totalCount}
-                page={page}
-                onPageChange={handleChangePage}
-                rowsPerPage={pageSize}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+            <TablePagination component="div" count={totalCount} page={page} onPageChange={handleChangePage} rowsPerPage={pageSize} onRowsPerPageChange={handleChangeRowsPerPage}/>
         </Paper>
     );
 }
