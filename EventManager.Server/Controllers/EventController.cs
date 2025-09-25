@@ -66,9 +66,10 @@ namespace EventManager.Server.Controllers
         /// Create a new event.
         /// </summary>
         /// <param name="dto">The event details.</param>
-        /// <returns>The created event.</returns>
+        /// <returns>The created event, or 400 if a parameter is bad.</returns>
         [HttpPost]
         [ProducesResponseType(typeof(EventDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<EventDto>> CreateEvent(EventCreateDto dto)
         {
             var created = await _eventService.CreateEventAsync(dto);
@@ -79,9 +80,10 @@ namespace EventManager.Server.Controllers
         /// Update an existing event.
         /// </summary>
         /// <param name="dto">The updated event details.</param>
-        /// <returns>The updated event, or 404 if not found.</returns>
+        /// <returns>The updated event, or 404 if not found, or 400 if a parameter is bad.</returns>
         [HttpPut]
         [ProducesResponseType(typeof(EventDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> UpdateEvent(EventDto dto)
         {
