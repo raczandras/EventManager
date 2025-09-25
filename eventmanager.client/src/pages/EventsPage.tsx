@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Snackbar, Alert, CircularProgress, Typography } from "@mui/material";
+import { Box, Snackbar, Alert, CircularProgress } from "@mui/material";
 import type { Event } from "../types/eventTypes";
 import * as api from "../api/eventApi";
 import EventTable from "../components/EventTable";
@@ -54,13 +54,18 @@ export default function EventsPage() {
         setSaving(true);
         try {
             if (event.eventId) {
-                await api.updateEvent(event);
+                const updatedEvent = await api.updateEvent(event);
+                setEvents(currentEvents => 
+                    currentEvents.map(e => 
+                        e.eventId === updatedEvent.eventId ? updatedEvent : e
+                    )
+                );
                 setSuccessMessage("Event updated successfully!");
             } else {
                 await api.createEvent(event);
                 setSuccessMessage("Event created successfully!");
+                await loadEvents();
             }
-            await loadEvents();
             setOpenForm(false);
         } catch (err: any) {
             setErrorMessage(err.message || "Unknown error while saving event");

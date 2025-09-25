@@ -22,7 +22,7 @@ export async function getEvents(page: number, pageSize: number, sortBy?: string,
     return response.json();
 }
 
-export async function createEvent(event: Event): Promise<void> {
+export async function createEvent(event: Event): Promise<Event> {
     const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -32,9 +32,11 @@ export async function createEvent(event: Event): Promise<void> {
     if (!response.ok) {
         throw new Error(`Failed to create event (${response.status})`);
     }
+
+    return response.json();
 }
 
-export async function updateEvent(event: Event): Promise<void> {
+export async function updateEvent(event: Event): Promise<Event> {
     const response = await fetch(API_URL, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -44,6 +46,8 @@ export async function updateEvent(event: Event): Promise<void> {
     if (!response.ok) {
         throw new Error(`Failed to update event (${response.status})`);
     }
+
+    return response.json();
 }
 
 export async function deleteEvent(id: number): Promise<void> {
