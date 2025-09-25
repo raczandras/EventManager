@@ -27,14 +27,13 @@ builder.Services.AddOpenApi();
 
 //Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite("DataSource=EventManager.db"));
+options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
 
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.OpenConnection();
     db.Database.Migrate();
 }
 

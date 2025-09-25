@@ -5,7 +5,7 @@
 namespace EventManager.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class EventsTable : Migration
+    public partial class InitialMigration_EventsTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,12 +14,12 @@ namespace EventManager.Server.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    EventId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Location = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Country = table.Column<string>(type: "TEXT", nullable: true),
-                    Capacity = table.Column<uint>(type: "INTEGER", nullable: true)
+                    EventId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Capacity = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
