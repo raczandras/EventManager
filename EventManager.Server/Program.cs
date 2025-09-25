@@ -37,9 +37,6 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
-app.UseDefaultFiles();
-app.MapStaticAssets();
-
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -57,6 +54,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapFallbackToFile("/index.html");
 
 app.Run();
