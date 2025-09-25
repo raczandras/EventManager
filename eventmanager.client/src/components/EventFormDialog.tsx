@@ -19,9 +19,7 @@ export default function EventFormDialog({
 }: Props) {
     const [values, setValues] = React.useState<Event>(initialValues);
 
-    React.useEffect(() => {
-        setValues(initialValues);
-    }, [initialValues]);
+    React.useEffect(() => { if (open) { setValues(initialValues); }}, [open]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
