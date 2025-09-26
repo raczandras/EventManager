@@ -19,7 +19,8 @@ This is a simple **ASP.NET Core Web API** & **React** project for managing event
 
 5. If you are running it in Visual Studio, make sure the startup project is set to `EventManager.Server`
 6. Run the project.
-7. The swagger UI will be available at: `/swagger/index.html`.
+7. If you are getting errors in the client console saying that packages cannot be found, then run the `npm install` command from the `eventManager.client` directory
+8. The swagger UI will be available at: `/swagger/index.html`.
 
 ## Available Endpoints
 
