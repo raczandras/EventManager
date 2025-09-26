@@ -1,10 +1,12 @@
 ﻿using EventManager.Server.ApiModels.Common;
 using EventManager.Server.ApiModels.EventController;
 using EventManager.Server.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EventManager.Server.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class EventController : ControllerBase
@@ -121,5 +123,4 @@ namespace EventManager.Server.Controllers
             return NoContent();
         }
     }
-
 }
