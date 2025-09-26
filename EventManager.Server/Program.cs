@@ -20,7 +20,9 @@ Log.Logger = new LoggerConfiguration()
 
 // Add services to the container.
 builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<IAuthorizationRepository, AuthorizationRepository>();
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
