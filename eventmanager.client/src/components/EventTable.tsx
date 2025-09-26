@@ -73,13 +73,8 @@ export default function EventTable({
                                 </TableSortLabel>
                             </TableCell>
                             <TableCell>
-                                <TableSortLabel active={sortBy === "Location"} direction={sortBy === "Location" ? (descending ? "desc" : "asc") : "asc"}onClick={createSortHandler("Location")}>
-                                    Location
-                                </TableSortLabel>
-                            </TableCell>
-                            <TableCell>
-                                <TableSortLabel active={sortBy === "Country"} direction={sortBy === "Country" ? (descending ? "desc" : "asc") : "asc"} onClick={createSortHandler("Country")}>
-                                    Country
+                                <TableSortLabel active={sortBy === "Location"} direction={sortBy === "Location" ? (descending ? "desc" : "asc") : "asc"} onClick={createSortHandler("Location")}>
+                                    Place
                                 </TableSortLabel>
                             </TableCell>
                             <TableCell>
@@ -95,9 +90,15 @@ export default function EventTable({
                             events.map((event) => (
                                 <TableRow key={event.eventId}>
                                     <TableCell>{event.name}</TableCell>
-                                    <TableCell>{event.location}</TableCell>
-                                    <TableCell>{event.country ?? "-"}</TableCell>
-                                    <TableCell>{event.capacity ?? "-"}</TableCell>
+                                    <TableCell>
+                                        {event.location}
+                                        {event.country ? (
+                                            <span style={{ color: "gray" }}>, {event.country}</span>
+                                        ) : null}
+                                    </TableCell>
+                                    <TableCell>
+                                        {event.capacity != null ? `${event.capacity} ppl` : "-"}
+                                    </TableCell>
                                     <TableCell align="right">
                                         <Button variant="outlined" color="primary" size="small" startIcon={<Edit />} onClick={() => onEdit(event)}>
                                             Edit
@@ -110,7 +111,7 @@ export default function EventTable({
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={5} align="center">
+                                <TableCell colSpan={4} align="center">
                                     No events available
                                 </TableCell>
                             </TableRow>
