@@ -125,6 +125,42 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapFallbackToFile("/index.html");
+//Seed users
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    await SeedUsers(userManager, roleManager);
+}
 
 app.Run();
+
+static async Task SeedUsers(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+{
+    //Ensure roles
+    if (!await roleManager.RoleExistsAsync("Admin"))
+    {
+        await roleManager.CreateAsync(new IdentityRole("Admin"));
+    }
+
+    if (!await roleManager.RoleExistsAsync("User"))
+    {
+        await roleManager.CreateAsync(new IdentityRole("User"));
+    }
+
+    //Create admin
+    if (await userManager.FindByNameAsync("admin") == null)
+    {
+        var admin = new IdentityUser { UserName = "admin", Email = "admin@admin.com" };
+        await userManager.CreateAsync(admin, "Admin123");
+        await userManager.AddToRoleAsync(admin, "Admin");
+    }
+
+    //Create regular user
+    if (await userManager.FindByNameAsync("user") == null)
+    {
+        var user = new IdentityUser { UserName = "user", Email = "user@user.com" };
+        await userManager.CreateAsync(user, "User123");
+        await userManager.AddToRoleAsync(user, "User");
+    }
+}
