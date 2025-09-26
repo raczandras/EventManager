@@ -1,7 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { login as apiLogin, logout as apiLogout, RefreshError } from "../api/authApi";
-import { clearTokens, getAccessToken, getUserEmail, setTokens } from "../api/tokenStore";
+import { clearTokens, getAccessToken, getUserEmail, setTokens } from "./tokenStore";
 import { useNavigate } from "react-router-dom";
+import { authEvents } from "./authEvents";
 
 type AuthContextType = {
     email: string | null;
@@ -23,17 +24,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     }, []);
 
-    //Global refresh failure listener
     useEffect(() => {
-        const handler = (e: any) => {
-            if (e.reason instanceof RefreshError) {
-                clearTokens();
-                setEmail(null);
-                navigate("/login", { replace: true });
-            }
+        const onLogout = () => {
+            clearTokens();
+            setEmail(null);
+            navigate("/login", { replace: true });
         };
-        window.addEventListener("unhandledrejection", handler);
-        return () => window.removeEventListener("unhandledrejection", handler);
+
+        authEvents.on(onLogout);
+        return () => authEvents.off(onLogout);
     }, [navigate]);
 
     const login = async (email: string, password: string) => {

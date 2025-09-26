@@ -1,16 +1,27 @@
-import { getAccessToken, isTokenExpired } from "./tokenStore";
+import { getAccessToken, isTokenExpired, clearTokens } from "../auth/tokenStore";
 import { refresh, RefreshError } from "./authApi";
+import { authEvents } from "../auth/authEvents";
 
 export async function authorizedFetch(input: RequestInfo, init: RequestInit = {}): Promise<Response> {
     let token = getAccessToken();
     if (!token) {
+        clearTokens();
+        authEvents.emit();
         throw new RefreshError("Not authenticated");
     }
 
-    //Refresh token if expired or about to expire
+    //Try to refresh token if expired or about to expire
     if (isTokenExpired(token)) {
-        const data = await refresh();
-        token = data.token;
+        try {
+            const data = await refresh();
+            token = data.token;
+        } catch (err) {
+            if (err instanceof RefreshError) {
+                clearTokens();
+                authEvents.emit();
+            }
+            throw err;
+        }
     }
 
     let res = await fetch(input, withAuth(init, token));
@@ -23,7 +34,8 @@ export async function authorizedFetch(input: RequestInfo, init: RequestInit = {}
         res = await fetch(input, withAuth(init, refreshed.token));
     } catch (err) {
         if (err instanceof RefreshError) {
-            throw err;
+            clearTokens();
+            authEvents.emit();
         }
         throw new Error("Unexpected error during refresh");
     }

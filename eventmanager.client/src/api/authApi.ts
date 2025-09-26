@@ -1,4 +1,4 @@
-import { clearTokens, getRefreshToken, setTokens } from "./tokenStore";
+import { clearTokens, getRefreshToken, setTokens } from "../auth/tokenStore";
 
 export class RefreshError extends Error {
     constructor(message: string) {

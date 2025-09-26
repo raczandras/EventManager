@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Typography, Avatar, Box } from "@mui/material";
 import mxcLogo from "../assets/mxc_logo.png";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../auth/AuthContext";
 import { NavLink } from "react-router-dom";
 
 export default function AppHeader() {

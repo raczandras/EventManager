@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Button, TextField, Typography, Alert, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../auth/AuthContext";
 
 export default function LoginPage() {
     const { login, isAuthenticated } = useAuth();
