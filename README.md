@@ -8,16 +8,17 @@ This is a simple **ASP.NET Core Web API** & **React** project for managing event
 
 1. Clone the repository.
 2. Install [MS SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) if you don't have it installed.
-3. Update the connection string in [`appsettings.Development.json`](./EventManager.Server/appsettings.Development.json) to match your local SQL Server instance if needed:
+3. Install [Node.js](https://nodejs.org/en/download) if you don't have it installed.
+4. Update the connection string in [`appsettings.Development.json`](./EventManager.Server/appsettings.Development.json) to match your local SQL Server instance if needed:
 
 ```json
 "ConnectionStrings": {
   "DbConnection": "Server=localhost;Database=EventManager;Trusted_Connection=True;TrustServerCertificate=True;"
 }
 ```
-4. If you are running it in Visual Studio, make sure the startup project is set to `EventManager.Server`
-5. Run the project.
-6. The swagger UI will be available at: `/swagger/index.html`.
+5. If you are running it in Visual Studio, make sure the startup project is set to `EventManager.Server`
+6. Run the project.
+7. The swagger UI will be available at: `/swagger/index.html`.
 
 ## Available Endpoints
 
