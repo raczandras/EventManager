@@ -15,9 +15,9 @@ This is a simple **ASP.NET Core Web API** & **React** project for managing event
   "DbConnection": "Server=localhost;Database=EventManager;Trusted_Connection=True;TrustServerCertificate=True;"
 }
 ```
-
-4. Run the project.
-5. The swagger UI will be available at: `/swagger/index.html`.
+4. If you are running it in Visual Studio, make sure the startup project is set to `EventManager.Server`
+5. Run the project.
+6. The swagger UI will be available at: `/swagger/index.html`.
 
 ## Available Endpoints
 
