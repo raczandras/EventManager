@@ -75,7 +75,9 @@ export default function EventsPage() {
     }
 
     async function handleDelete() {
-        if (!selectedEvent) return;
+        if (!selectedEvent) {
+            return;
+        }
         setDeleting(true);
         try {
             await api.deleteEvent(selectedEvent.eventId);
@@ -107,8 +109,7 @@ export default function EventsPage() {
                     sortBy={sortBy}
                     descending={descending}
                     onSort={handleSort}
-                />
-                )}
+                />)}
 
             <EventFormDialog
                 open={openForm}
