@@ -3,8 +3,6 @@ using EventManager.Server.Data.Context;
 using EventManager.Server.Data.Entities;
 using EventManager.Server.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Moq;
 
 namespace UnitTests.Repositories
 {
@@ -21,8 +19,7 @@ namespace UnitTests.Repositories
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
-            var logger = Mock.Of<ILogger<ApplicationDbContext>>();
-            _context = new ApplicationDbContext(options, logger);
+            _context = new ApplicationDbContext(options);
 
             _events = new List<Event>
             {
