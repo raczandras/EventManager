@@ -99,7 +99,6 @@ export default function EventTable({
                                     <TableCell>
                                         {event.capacity != null ? `${event.capacity} ppl` : "-"}
                                     </TableCell>
-                                    <TableCell>{event.capacity ?? "-"}</TableCell>
                                     <TableCell align="right">
                                         <Button variant="outlined" color="primary" size="small" startIcon={<Edit />} onClick={() => onEdit(event)}>
                                             Edit
