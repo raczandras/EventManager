@@ -127,6 +127,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseDefaultFiles();
+app.MapStaticAssets();
+
 //Seed users
 using (var scope = app.Services.CreateScope())
 {
@@ -134,6 +137,8 @@ using (var scope = app.Services.CreateScope())
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     await SeedUsers(userManager, roleManager);
 }
+
+app.MapFallbackToFile("index.html");
 
 app.Run();
 
