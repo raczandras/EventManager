@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { login as apiLogin, logout as apiLogout, RefreshError } from "../api/authApi";
+import { login as apiLogin, logout as apiLogout } from "../api/authApi";
 import { clearTokens, getAccessToken, getUserEmail, setTokens } from "./tokenStore";
 import { useNavigate } from "react-router-dom";
 import { authEvents } from "./authEvents";
