@@ -30,6 +30,7 @@ This is a simple **ASP.NET Core Web API** & **React** project for managing event
 | ------ | ---------------------------- | ---------------------------------------------------------------------- |
 | POST   | `/api/authorization/login`   | Authenticate a user and return an access token + refresh token.        |
 | POST   | `/api/authorization/refresh` | Exchange a valid refresh token for a new access token + refresh token. |
+| POST   | `/api/authorization/logout`  | Logout a user and invalidate the refresh token                         |
 
 ### Events
 
